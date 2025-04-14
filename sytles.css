@@ -1,0 +1,11 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1, h2, h3 {
+    transition: transform 0.3s;
+}
+
+h1:hover, h2:hover, h3:hover {
+    transform: scale(1.05);
+}

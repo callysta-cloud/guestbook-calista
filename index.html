@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+       <script>
+        if (!sessionStorage.getItem("visited")) {
+            sessionStorage.setItem("visited", "true");
+    
+        }
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guestbook Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #E6F0FF; 
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #0056b3;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #003f7f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Guestbook Website</h1>
+        <p>Ini adalah tempat untuk berbagi pesan dan kenangan. Kami senang mendengar dari Anda!</p>
+        <form id="guestbook-form">
+            <input type="text" id="name" placeholder="Nama Anda" required>
+            <textarea id="message" placeholder="Tulis pesan Anda di sini..." required></textarea>
+            <button type="submit">Kirim</button>
+        </form>
+    </div>
+  <script>
+        document.getElementById("guestbook-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const message = document.getElementById("message").value;
+            if (name && message) {
+                //
+                localStorage.setItem("guestName", name);
+                localStorage.setItem("guestMessage", message);
+                window.location.href = "thankyou.html"; 
+            }
+        });
+        
+    </script>
+    
+</body>
+</html>
