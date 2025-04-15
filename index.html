@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-       <script>
+    <script>
         if (!sessionStorage.getItem("visited")) {
             sessionStorage.setItem("visited", "true");
-    
         }
     </script>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guestbook Website</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #E6F0FF; 
+            background-color: #E6F0FF;
             color: #333;
             margin: 0;
             padding: 0;
@@ -24,6 +23,7 @@
             height: 100vh;
             flex-direction: column;
         }
+
         .container {
             background: #fff;
             padding: 20px;
@@ -32,9 +32,11 @@
             width: 400px;
             text-align: center;
         }
+
         h1 {
             color: #0056b3;
         }
+
         input, textarea {
             width: 100%;
             padding: 10px;
@@ -42,6 +44,7 @@
             border: 1px solid #ccc;
             border-radius: 6px;
         }
+
         button {
             background-color: #0056b3;
             color: white;
@@ -51,6 +54,7 @@
             border-radius: 6px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #003f7f;
         }
@@ -66,44 +70,41 @@
             <button type="submit">Kirim</button>
         </form>
     </div>
-  <script>
-       document.getElementById("guestbook-form").addEventListener("submit", async function(event) {
-    event.preventDefault();
-    const name = document.getElementById("name").value;
-    const message = document.getElementById("message").value;
 
-    if (name && message) {
-        // Ganti URL API Gateway dengan URL kamu
-        const apiUrl = https: //b51gbyh4f5.execute-api.us-east-1.amazonaws.com/prod; 
+    <script>
+        const apiUrl = "https://b51gbyh4f5.execute-api.us-east-1.amazonaws.com/prod";
 
-        try {
-            const response = await fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: name,
-                    message: message
-                })
-            });
+        document.getElementById("guestbook-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
 
-            const data = await response.json();
+            const name = document.getElementById("name").value;
+            const message = document.getElementById("message").value;
 
-            if (response.ok) {
-                // Jika berhasil, arahkan ke halaman terima kasih
+            const data = {
+                name: name,
+                message: message
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Gagal mengirim pesan");
+                }
+
+                alert("Pesan berhasil dikirim!");
                 window.location.href = "thankyou.html";
-            } else {
-                alert("Terjadi kesalahan saat mengirim pesan: " + data.error);
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Terjadi kesalahan: " + error.message);
             }
-        } catch (error) {
-            alert("Terjadi kesalahan: " + error.message);
-        }
-    }
-});
-
-        
+        });
     </script>
-    
 </body>
 </html>
