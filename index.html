@@ -67,17 +67,41 @@
         </form>
     </div>
   <script>
-        document.getElementById("guestbook-form").addEventListener("submit", function(event) {
-            event.preventDefault();
-            const name = document.getElementById("name").value;
-            const message = document.getElementById("message").value;
-            if (name && message) {
-                //
-                localStorage.setItem("guestName", name);
-                localStorage.setItem("guestMessage", message);
-                window.location.href = "thankyou.html"; 
+       document.getElementById("guestbook-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const name = document.getElementById("name").value;
+    const message = document.getElementById("message").value;
+
+    if (name && message) {
+        // Ganti URL API Gateway dengan URL kamu
+        const apiUrl = "https://b51gbyh4f5.execute-api.us-east-1.amazonaws.com/prod";  // Ganti dengan URL API Gateway kamu
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: name,
+                    message: message
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Jika berhasil, arahkan ke halaman terima kasih
+                window.location.href = "thankyou.html";
+            } else {
+                alert("Terjadi kesalahan saat mengirim pesan: " + data.error);
             }
-        });
+        } catch (error) {
+            alert("Terjadi kesalahan: " + error.message);
+        }
+    }
+});
+
         
     </script>
     
